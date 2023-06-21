@@ -1,0 +1,19 @@
+service: fifty-flowers
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  environment:
+    USER_POOL_ID: ${ssm:/fifty-flowers/user-pool-id}
+    APP_CLIENT_ID: ${ssm:/fifty-flowers/app-client-id}
+
+plugins:
+  - serverless-offline
+  - serverless-express
+
+functions:
+  api:
+    handler: index.handler
+    events:
+      - httpApi: "*"
