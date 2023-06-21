@@ -1,19 +1,26 @@
 service: fifty-flowers
-frameworkVersion: "3"
+frameworkVersion: '3'
 
 provider:
   name: aws
   runtime: nodejs18.x
   environment:
-    USER_POOL_ID: ${ssm:/fifty-flowers/user-pool-id}
-    APP_CLIENT_ID: ${ssm:/fifty-flowers/app-client-id}
+    JWT_SECRET: taivu
 
 plugins:
   - serverless-offline
-  - serverless-express
+  - serverless-offline-watcher
+
+custom:
+  serverless-offline-watcher:
+    - path:
+        - src
+        - index.js
+        - serverless.yml
+      command: echo "app was modified!"
 
 functions:
   api:
     handler: index.handler
     events:
-      - httpApi: "*"
+      - httpApi: '*'
