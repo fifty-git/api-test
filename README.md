@@ -27,7 +27,7 @@ You will be judged on:
 
 How to turn in your work:
 
-1. Pull the main branch and create a working branch from it with your name included in the branch name.
+1. Clone the main branch and create a working branch from it with your name included in the branch name.
    - E.g.: `myName/2023-06-20`
    - Pay close attention to your commit messages.
 2. Push your branch at the designated time in the email you received, no earlier!
