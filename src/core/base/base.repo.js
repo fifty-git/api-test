@@ -1,6 +1,6 @@
-import data from '../../../data/db.json';
+const data = require('../../../data/db.json');
 
-export default class BaseRepo {
+class BaseRepo {
   constructor(key) {
     this.model = data[key];
   }
@@ -32,3 +32,5 @@ export default class BaseRepo {
     return true;
   }
 }
+
+module.exports = BaseRepo;

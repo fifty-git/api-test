@@ -1,8 +1,8 @@
-import Context from '../../helpers/context';
-import { BaseRepo } from './base.repo';
-import { AppError } from '../errors';
+const Context = require('../../helpers/context');
+const BaseRepo = require('./base.repo');
+const { AppError } = require('../errors');
 
-export default class CoreService {
+class CoreService {
   constructor(repo) {
     if (!(repo instanceof BaseRepo)) {
       throw new AppError('Wrong Repo Type', 500);
@@ -32,3 +32,5 @@ export default class CoreService {
     return this.repo.delete(id);
   }
 }
+
+module.exports = CoreService;
