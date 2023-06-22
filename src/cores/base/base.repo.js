@@ -1,7 +1,8 @@
 const { Model } = require('../database');
 class BaseRepo {
-  constructor(nameEntity) {
-    this.model = new Model(nameEntity);
+  constructor(entityClass, nameEntity) {
+    this.entityClass = entityClass;
+    this.model = new Model(entityClass, nameEntity);
   }
 
   async findAll() {

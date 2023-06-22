@@ -1,5 +1,5 @@
 const UserService = require('./user.service');
-
+const UserEntity = require('./user.entity');
 class UserController {
   constructor() {
     this.service = new UserService();

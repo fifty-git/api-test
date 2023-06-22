@@ -27,12 +27,12 @@ class Database {
   }
 
   // Get all entities of a specific type
-  findAll(entityName) {
+  findAll({ entityName }) {
     return this.data[entityName.toLowerCase()] || [];
   }
 
   // Get an entity by ID
-  findById(entityName, entityId) {
+  findById({ entityName }, entityId) {
     const entities = this.data[entityName.toLowerCase()];
     if (entities) {
       return entities.find(entity => entity.id === +entityId);
@@ -41,12 +41,12 @@ class Database {
   }
 
   // Add a new entity
-  create(entityName, entity) {
+  create({ entityClass, entityName }, entity) {
     const entities = this.data[entityName.toLowerCase()] || [];
-    const newEntity = {
+    const newEntity = new entityClass({
       id: entities.length + 1,
       ...entity,
-    };
+    });
     entities.push(newEntity);
     this.data[entityName.toLowerCase()] = entities;
     this.saveData();
@@ -54,24 +54,25 @@ class Database {
   }
 
   // Update an entity
-  update(entityName, entityId, updatedEntity) {
+  update({ entityClass, entityName }, entityId, updatedEntity) {
     const entities = this.data[entityName.toLowerCase()];
     if (entities) {
       const entityIndex = entities.findIndex(entity => entity.id === +entityId);
       if (entityIndex !== -1) {
-        entities[entityIndex] = {
+        entities[entityIndex] = new entityClass({
           ...entities[entityIndex],
           ...updatedEntity,
-        };
+        });
         this.saveData();
         return entities[entityIndex];
       }
     }
+
     return null;
   }
 
   // Delete an entity
-  delete(entityName, entityId) {
+  delete({ entityName }, entityId) {
     const entities = this.data[entityName.toLowerCase()];
     if (entities) {
       const entityIndex = entities.findIndex(entity => entity.id === +entityId);
