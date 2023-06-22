@@ -12,11 +12,11 @@ class CoreService {
     this.context = new Context();
   }
 
-  async findAll() {
+  async getAll() {
     return this.repo.findAll();
   }
 
-  async findById(id) {
+  async getById(id) {
     return this.repo.findById(id);
   }
 
@@ -25,11 +25,21 @@ class CoreService {
   }
 
   async update(id, data) {
-    return this.repo.update(id, data);
+    const user = await this.repo.update(id, data);
+    if (!user) {
+      throw new AppError('User not found', 404);
+    }
+
+    return user;
   }
 
   async delete(id) {
-    return this.repo.delete(id);
+    const isDeleted = await this.repo.delete(id);
+    if (!isDeleted) {
+      throw new AppError('User not found', 404);
+    }
+
+    return isDeleted;
   }
 }
 

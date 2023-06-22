@@ -9,14 +9,14 @@ const AuthMiddleware = {
     if (exclude.includes(req.path)) {
       return next();
     }
-
-    const token = req.headers.authorization.split(' ')[1];
-    if (!token) {
+    const bearerHeader = req.headers.authorization;
+    if (!bearerHeader) {
       return res.status(401).json({
         error: 'Unauthorized',
       });
     }
-    console.log(env);
+
+    const token = req.headers.authorization.split(' ')[1];
     const decoded = jwt.verify(token, env.auth.jwt_secret);
     if (!decoded) {
       return res.status(401).json({

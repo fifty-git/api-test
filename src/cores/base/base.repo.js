@@ -1,35 +1,27 @@
-const data = require('../../../data/db.json');
-
+const { Model } = require('../database');
 class BaseRepo {
-  constructor(key) {
-    this.model = data[key];
+  constructor(nameEntity) {
+    this.model = new Model(nameEntity);
   }
 
   async findAll() {
-    return this.model;
+    return this.model.findAll();
   }
 
   async findById(id) {
-    return this.model.find(item => item.id === id);
+    return this.model.findById(id);
   }
 
   async create(data) {
-    const id = this.model.length + 1;
-    const item = { ...data, id };
-    this.model.push(item);
-    return item;
+    return this.model.create(data);
   }
 
   async update(id, data) {
-    const index = this.model.findIndex(item => item.id === id);
-    this.model[index] = { ...this.model[index], ...data };
-    return this.model[index];
+    return this.model.update(id, data);
   }
 
   async delete(id) {
-    const index = this.model.findIndex(item => item.id === id);
-    this.model.splice(index, 1);
-    return true;
+    return this.model.delete(id);
   }
 }
 

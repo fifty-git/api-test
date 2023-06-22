@@ -5,38 +5,62 @@ class UserController {
     this.service = new UserService();
   }
 
-  async findAll(req, res) {
-    const users = await this.service.findAll();
-    return res.json(users);
+  async getAll(req, res, next) {
+    try {
+      const users = await this.service.getAll();
+      return res.json(users);
+    } catch (error) {
+      next(error);
+    }
   }
 
-  async findById(req, res) {
-    const { id } = req.params;
-    const user = await this.service.findById(id);
-    return res.json(user);
+  async getById(req, res, next) {
+    try {
+      const { id } = req.params;
+      const user = await this.service.getById(id);
+      return res.json(user);
+    } catch (error) {
+      next(error);
+    }
   }
 
-  async create(req, res) {
-    const user = await this.service.create(req.body);
-    return res.json(user);
+  async create(req, res, next) {
+    try {
+      const user = await this.service.create(req.body);
+      return res.json(user);
+    } catch (error) {
+      next(error);
+    }
   }
 
-  async update(req, res) {
-    const { id } = req.params;
-    const user = await this.service.update(id, req.body);
-    return res.json(user);
+  async update(req, res, next) {
+    try {
+      const { id } = req.params;
+      const user = await this.service.update(id, req.body);
+      return res.json(user);
+    } catch (error) {
+      next(error);
+    }
   }
 
-  async delete(req, res) {
-    const { id } = req.params;
-    const user = await this.service.delete(id);
-    return res.json(user);
+  async delete(req, res, next) {
+    try {
+      const { id } = req.params;
+      const user = await this.service.delete(id);
+      return res.json(user);
+    } catch (error) {
+      next(error);
+    }
   }
 
-  async login(req, res) {
-    const { id } = req.body;
-    const token = await this.service.login(id);
-    return res.json(token);
+  async login(req, res, next) {
+    try {
+      const { id } = req.body;
+      const token = await this.service.login(id);
+      return res.json(token);
+    } catch (error) {
+      next(error);
+    }
   }
 }
 
