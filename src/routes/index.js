@@ -1,6 +1,7 @@
 const { AuthMiddleware, ErrorMiddleware } = require('../middlewares');
 const userRouter = require('../modules/user/user.route');
 const authRouter = require('../modules/auth/auth.route');
+const orderRouter = require('../modules/order/order.route');
 
 module.exports = app => {
   // Middleware
@@ -15,4 +16,5 @@ module.exports = app => {
 
   app.use('/', authRouter);
   app.use('/users', userRouter);
+  app.use('/orders', orderRouter);
 };

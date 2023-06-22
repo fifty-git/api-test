@@ -4,7 +4,6 @@ const { AppError } = require('../errors');
 
 class CoreService {
   constructor(repo) {
-    console.log(repo);
     if (!(repo instanceof BaseRepo)) {
       throw new AppError('Wrong Repo Type', 500);
     }
