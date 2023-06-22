@@ -30,7 +30,7 @@ How to turn in your work:
 1. Clone the main branch and create a working branch from it with your name included in the branch name.
    - E.g.: `myName/2023-06-20`
    - Pay close attention to your commit messages.
-2. Push your branch by the designated time in the email you received.
+2. Push your branch to **_this repository_** by the designated time in the email you received.
    - You may only push your work **_ONE TIME_**
    - No other commits may be pushed to the PR.
 3. Create a Pull Request.
