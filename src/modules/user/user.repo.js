@@ -1,4 +1,4 @@
-const BaseRepo = require('../../core/base/base.repo');
+const BaseRepo = require('../../cores/base/base.repo');
 
 class UserRepo extends BaseRepo {
   constructor() {

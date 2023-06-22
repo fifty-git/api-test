@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
-const BaseService = require('../../core/base/base.service');
+const BaseService = require('../../cores/base/base.service');
 const UserRepo = require('./user.repo');
-const { AppError } = require('../../core/errors');
-
+const { AppError } = require('../../cores/errors');
+const { env } = require('../../configs');
 class UserService extends BaseService {
   constructor() {
     super(new UserRepo());
@@ -20,7 +20,7 @@ class UserService extends BaseService {
         id: user.id,
         email: user.email,
       },
-      process.env.JWT_SECRET,
+      env.auth.jwt_secret,
     );
 
     return token;
