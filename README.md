@@ -32,6 +32,6 @@ How to turn in your work:
    - Pay close attention to your commit messages.
 2. Push your branch to **_this repository_** by the designated time in the email you received.
    - You may only push your work **_ONE TIME_**
-   - No other commits after the first one will be considered.
+   - No other pushed commits after the first one will be considered.
 3. Create a Pull Request.
    - Pay close attention to your PR description.
