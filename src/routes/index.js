@@ -6,4 +6,7 @@ module.exports = app => {
       message: 'Hello world!',
     });
   });
+
+  const userController = new UserController();
+  app.post('/login', userController.login.bind(userController));
 };
