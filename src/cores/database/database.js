@@ -15,13 +15,11 @@ class Database {
     return instance;
   }
 
-  // Load JSON data from file
   loadData() {
     const data = fs.readFileSync(dataPath);
     return JSON.parse(data);
   }
 
-  // Save JSON data to file
   saveData() {
     fs.writeFileSync(dataPath, JSON.stringify(this.data, null, 2));
   }
@@ -31,7 +29,6 @@ class Database {
     return this.data[entityName.toLowerCase()] || [];
   }
 
-  // Get an entity by ID
   findById({ entityName }, entityId) {
     const entities = this.data[entityName.toLowerCase()];
     if (entities) {
@@ -40,7 +37,6 @@ class Database {
     return null;
   }
 
-  // Add a new entity
   create({ entityClass, entityName }, entity) {
     const entities = this.data[entityName.toLowerCase()] || [];
     const newEntity = new entityClass({
@@ -53,7 +49,6 @@ class Database {
     return newEntity;
   }
 
-  // Update an entity
   update({ entityClass, entityName }, entityId, updatedEntity) {
     const entities = this.data[entityName.toLowerCase()];
     if (entities) {
@@ -71,7 +66,6 @@ class Database {
     return null;
   }
 
-  // Delete an entity
   delete({ entityName }, entityId) {
     const entities = this.data[entityName.toLowerCase()];
     if (entities) {
