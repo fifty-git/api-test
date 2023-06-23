@@ -1,0 +1,93 @@
+	
+# serverless.yml
+ 
+service: api-test
+ 
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  region: us-east-1
+ 
+custom:
+  serverless-offline:
+    noPrependStageInUrl: true
+
+functions:
+  app:
+    handler: index.handler
+    events:
+      # - http: GET /
+      - http: 
+          path: /users
+          method: GET
+          cors: true
+      - http: 
+          path: /user/{id}
+          method: GET
+          cors: true
+      - http: 
+          path: /user
+          method: POST
+          cors: true
+      - http: 
+          path: /user
+          method: PUT
+          cors: true
+      - http: 
+          path: /user/{id}
+          method: DELETE
+          cors: true
+      - http: 
+          path: /items
+          method: GET
+          cors: true
+      - http: 
+          path: /item/{id}
+          method: GET
+          cors: true
+      - http: 
+          path: /addresses
+          method: GET
+          cors: true
+      - http: 
+          path: /address/{id}
+          method: GET
+          cors: true
+      - http: 
+          path: /address/{id}
+          method: DELETE
+          cors: true
+      - http: 
+          path: /address
+          method: POST
+          cors: true
+      - http: 
+          path: /address
+          method: PUT
+          cors: true
+      - http: 
+          path: /orders
+          method: GET
+          cors: true
+      - http: 
+          path: /order
+          method: POST
+          cors: true
+      - http: 
+          path: /order
+          method: PUT
+          cors: true
+      - http: 
+          path: /order/{id}
+          method: GET
+          cors: true
+      - http: 
+          path: /order/{id}
+          method: DELETE
+          cors: true
+      - http: GET /auth
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
