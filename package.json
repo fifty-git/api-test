@@ -4,11 +4,16 @@
   "description": "You are provided a JSON file that will act as your database.",
   "main": "app.js",
   "scripts": {
-    "start": "serverless offline"
+    "start": "serverless offline",
+    "format": "prettier --write .",
+    "lint": "eslint . --ext .js",
+    "lint:fix": "npm run lint -- --fix"
   },
   "author": "John Aguirre",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^8.43.0",
+    "prettier": "^2.8.8",
     "serverless-offline": "^12.0.4"
   },
   "dependencies": {

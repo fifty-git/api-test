@@ -1,4 +1,4 @@
-require("dotenv").config();
+require('dotenv').config();
 const serverless = require('serverless-http');
 const express = require('express');
 const logger = require('./logger/logger');

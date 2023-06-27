@@ -1,6 +1,6 @@
 service: api-test
 
-frameworkVersion: "3"
+frameworkVersion: '3'
 
 provider:
   stage: dev
@@ -18,7 +18,7 @@ functions:
   app:
     handler: app.handler
     events:
-      - http: 
+      - http:
           path: /
           method: GET
 
