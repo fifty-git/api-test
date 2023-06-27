@@ -130,14 +130,14 @@
   "users": [
     {
       "id": 1,
-      "firstName": "John",
-      "lastName": "Aguirre",
-      "userTypeId": 3
+      "firstName": "Emil",
+      "lastName": "Ferrigno",
+      "userTypeId": 1
     },
     {
       "id": 2,
-      "firstName": "David",
-      "lastName": "Cando",
+      "firstName": "Kaitlin",
+      "lastName": "Harjo",
       "userTypeId": 3
     }
   ],

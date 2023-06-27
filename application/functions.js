@@ -1,63 +1,70 @@
 const db_file = './data/db.json';
 const fs = require('fs');
 const logger = require('../logger/logger');
-const readJSON = function (key) {
-  let rawdata = fs.readFileSync(db_file);
-  try {
-    const dict_data = JSON.parse(rawdata);
-    if (key in dict_data) {
-      return dict_data[key];
-    } else {
-      logger.info(`Key ${key} not found!`);
+
+const readEntity = function (key) {
+  const dbOject = loadDBJson();
+  if (dbOject != null) {
+    try {
+      if (key in dbOject) {
+        return dbOject[key];
+      } else {
+        logger.info(`Entity ${key} not found!`);
+        return null;
+      }
+    } catch (err) {
+      logger.error('Error reading entity:', err);
       return null;
     }
-  } catch (err) {
-    logger.error('Error parsing JSON string:', err);
-    return null;
   }
+  return dbOject;
 };
 
 const getLastId = function (key) {
-  let rawdata = fs.readFileSync(db_file);
-  let id = 0;
-  try {
-    const dict_data = JSON.parse(rawdata);
-    if (key in dict_data) {
-      for (const data of dict_data[key]) {
-        id = data.id;
+  const dbOject = loadDBJson();
+  if (dbOject != null) {
+    let id = 0;
+    try {
+      if (key in dbOject) {
+        for (const data of dbOject[key]) {
+          id = data.id;
+        }
+        return id + 1;
+      } else {
+        logger.info(`Entity ${key} not found!`);
+        return null;
       }
-      return id + 1;
-    } else {
-      logger.info(`Key ${key} not found!`);
+    } catch (err) {
+      logger.error('Error getting the last id:', err);
       return null;
     }
-  } catch (err) {
-    logger.error('Error parsing JSON string:', err);
-    return null;
   }
+  return dbOject;
 };
 
-const insertUser = function (key, id, firstName, lastName, userTypeId) {
+const createUser = function (key, id, firstName, lastName, userTypeId) {
   const newUser = { id, firstName, lastName, userTypeId };
-  let rawdata = fs.readFileSync(db_file);
-  try {
-    const dict_data = JSON.parse(rawdata);
-    if (key in dict_data) {
-      dict_data[key].push(newUser);
-      fs.writeFileSync(db_file, JSON.stringify(dict_data, null, 2));
-      return true;
-    } else {
-      logger.info(`Key ${key} not found!`);
+  const dbOject = loadDBJson();
+  if (dbOject != null) {
+    try {
+      if (key in dbOject) {
+        dbOject[key].push(newUser);
+        fs.writeFileSync(db_file, JSON.stringify(dbOject, null, 2));
+        return true;
+      } else {
+        logger.info(`Entity ${key} not found!`);
+        return false;
+      }
+    } catch (err) {
+      logger.error('Error creating user:', err);
       return false;
     }
-  } catch (err) {
-    logger.error('Error inserting JSON:', err);
-    return false;
   }
+  return false;
 };
 
 const validateId = function (key, id) {
-  const list_data = readJSON(key);
+  const list_data = readEntity(key);
   for (const ldata of list_data) {
     if (id == ldata.id) {
       return true;
@@ -66,15 +73,15 @@ const validateId = function (key, id) {
   return false;
 };
 
-const loadDB = function () {
-  let rawdata = fs.readFileSync(db_file);
+const loadDBJson = function () {
+  let data = fs.readFileSync(db_file);
   try {
-    const dict_data = JSON.parse(rawdata);
-    return dict_data;
+    const data_parser = JSON.parse(data);
+    return data_parser;
   } catch (err) {
-    logger.error('Error parsing JSON string:', err);
+    logger.error('Error parsing data:', err);
     return null;
   }
 };
 
-module.exports = { readJSON, getLastId, insertUser, validateId, loadDB };
+module.exports = { readEntity, getLastId, createUser, validateId, loadDBJson };
