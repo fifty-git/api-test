@@ -1,0 +1,51 @@
+service: api-test
+
+frameworkVersion: '3'
+
+provider:
+  stage: dev
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+
+custom:
+  dotenv:
+    path: .env
+  serverless-offline:
+    noPrependStageInUrl: true
+
+functions:
+  app:
+    handler: app.handler
+    events:
+      - http:
+          path: /
+          method: GET
+      - http:
+          path: /login
+          method: POST
+      - http:
+          path: /addresses
+          method: GET
+      - http:
+          path: /address/{id}
+          method: GET
+      - http:
+          path: /users
+          method: GET
+      - http:
+          path: /user/{id}
+          method: GET
+      - http:
+          path: /user
+          method: POST
+      - http:
+          path: /user/{id}
+          method: PUT
+      - http:
+          path: /user/{id}
+          method: DELETE
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
