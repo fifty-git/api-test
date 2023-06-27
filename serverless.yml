@@ -21,6 +21,9 @@ functions:
       - http:
           path: /
           method: GET
+      - http:
+          path: /login
+          method: POST
 
 plugins:
   - serverless-offline
