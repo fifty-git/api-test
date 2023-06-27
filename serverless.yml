@@ -24,6 +24,12 @@ functions:
       - http:
           path: /login
           method: POST
+      - http:
+          path: /address
+          method: GET
+      - http:
+          path: /address/{id}
+          method: GET
 
 plugins:
   - serverless-offline
