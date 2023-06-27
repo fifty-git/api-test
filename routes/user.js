@@ -1,6 +1,8 @@
 const express = require('express');
 const { protect } = require('../application/auth');
 const functions = require('../application/functions');
+const fs = require('fs');
+const db_file = './data/db.json';
 const logger = require('../logger/logger');
 
 const router = express.Router();
@@ -35,16 +37,10 @@ router.post('/user', protect, (req, res) => {
     return res.status(500).json({ error: 'The lastName is required!' });
   }
 
-  if (!userTypeId || typeof userTypeId != 'number' ) {
+  if (!userTypeId || typeof userTypeId != 'number') {
     return res.status(500).json({ error: 'The userTypeId is required!' });
   } else {
-    const list_usersTypes = functions.readJSON('userTypes');
-    let bandId = false;
-    for (const userType of list_usersTypes) {
-      if (userTypeId == userType.id) {
-        bandId = true;
-      }
-    }
+    let bandId = functions.validateId('userTypes', userTypeId);
     if (!bandId) {
       return res.status(500).json({ error: 'The userTypeId not found in userTypes!' });
     }
@@ -56,6 +52,72 @@ router.post('/user', protect, (req, res) => {
     return res.json({ msg: `The user ${firstName} ${lastName} was created with ID ${id}!` });
   } else {
     return res.status(500).json({ error: 'The user not was created!' });
+  }
+});
+
+router.put('/user/:id', protect, (req, res) => {
+  const { firstName, lastName, userTypeId, ...any } = req.body;
+  let edited = null;
+  const dbOject = functions.loadDB();
+  if (dbOject == null) {
+    return res.status(500).json({ error: 'Failed to open db.json file!' });
+  }
+
+  if (firstName) {
+    if (typeof firstName != 'string') {
+      return res.status(500).json({ error: "The firstName isn't string value!" });
+    }
+    edited = dbOject.users.find((user) => user.id == req.params.id);
+    if (edited) {
+      edited.firstName = firstName;
+    }
+  }
+
+  if (lastName) {
+    if (typeof lastName != 'string') {
+      return res.status(500).json({ error: "The lastName isn't string value!" });
+    }
+    edited = dbOject.users.find((user) => user.id == req.params.id);
+    if (edited) {
+      edited.lastName = lastName;
+    }
+  }
+
+  if (userTypeId) {
+    if (typeof userTypeId != 'number') {
+      return res.status(500).json({ error: "The userTypeId isn't number value!" });
+    }
+    let bandId = functions.validateId('userTypes', userTypeId);
+    if (!bandId) {
+      return res.status(500).json({ error: 'The userTypeId not found in userTypes!' });
+    }
+    edited = dbOject.users.find((user) => user.id == req.params.id);
+    if (edited) {
+      edited.userTypeId = userTypeId;
+    }
+  }
+
+  if (Object.keys(any).length > 0) {
+    return res.status(500).json({ error: `The specified field ${JSON.stringify(any)} not exist!.` });
+  } else {
+    if (edited == null) {
+      return res.status(500).json({ error: `The specified user not exist!.` });
+    }
+    fs.writeFileSync(db_file, JSON.stringify(dbOject, null, 2));
+    return res.json({ msg: `The user was updated!` });
+  }
+});
+
+router.delete('/user/:id', protect, (req, res) => {
+  logger.info(`[Id User Request] ${req.params.id} `);
+  const dbOject = functions.loadDB();
+  let index = dbOject.users.findIndex((user) => user.id == req.params.id);
+  if (index != -1) {
+    dbOject.users.splice(index, 1);
+    fs.writeFileSync(db_file, JSON.stringify(dbOject, null, 2));
+    return res.json({ msg: `The user with ID ${req.params.id} was deleted!` });
+  } else {
+    return res.status(500).json({ error: `User ID ${req.params.id} not found!` });
   }
 });
 

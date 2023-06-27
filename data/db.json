@@ -130,21 +130,15 @@
   "users": [
     {
       "id": 1,
-      "firstName": "Emil",
-      "lastName": "Ferrigno",
-      "userTypeId": 1
-    },
-    {
-      "id": 2,
-      "firstName": "Kaitlin",
-      "lastName": "Harjo",
+      "firstName": "John",
+      "lastName": "Aguirre",
       "userTypeId": 3
     },
     {
-      "id": 3,
-      "firstName": "John",
-      "lastName": "Aguirre",
-      "userTypeId": 2
+      "id": 2,
+      "firstName": "David",
+      "lastName": "Cando",
+      "userTypeId": 3
     }
   ],
   "userTypes": [

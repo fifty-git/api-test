@@ -1,7 +1,7 @@
 const db_file = './data/db.json';
 const fs = require('fs');
 const logger = require('../logger/logger');
-module.exports.readJSON = function (key) {
+const readJSON = function (key) {
   let rawdata = fs.readFileSync(db_file);
   try {
     const dict_data = JSON.parse(rawdata);
@@ -17,7 +17,7 @@ module.exports.readJSON = function (key) {
   }
 };
 
-module.exports.getLastId = function (key) {
+const getLastId = function (key) {
   let rawdata = fs.readFileSync(db_file);
   let id = 0;
   try {
@@ -37,7 +37,7 @@ module.exports.getLastId = function (key) {
   }
 };
 
-module.exports.insertUser = function (key, id, firstName, lastName, userTypeId) {
+const insertUser = function (key, id, firstName, lastName, userTypeId) {
   const newUser = { id, firstName, lastName, userTypeId };
   let rawdata = fs.readFileSync(db_file);
   try {
@@ -55,3 +55,26 @@ module.exports.insertUser = function (key, id, firstName, lastName, userTypeId) 
     return false;
   }
 };
+
+const validateId = function (key, id) {
+  const list_data = readJSON(key);
+  for (const ldata of list_data) {
+    if (id == ldata.id) {
+      return true;
+    }
+  }
+  return false;
+};
+
+const loadDB = function () {
+  let rawdata = fs.readFileSync(db_file);
+  try {
+    const dict_data = JSON.parse(rawdata);
+    return dict_data;
+  } catch (err) {
+    logger.error('Error parsing JSON string:', err);
+    return null;
+  }
+};
+
+module.exports = { readJSON, getLastId, insertUser, validateId, loadDB };

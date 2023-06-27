@@ -39,6 +39,12 @@ functions:
       - http:
           path: /user
           method: POST
+      - http:
+          path: /user/{id}
+          method: PUT
+      - http:
+          path: /user/{id}
+          method: DELETE
 
 plugins:
   - serverless-offline
