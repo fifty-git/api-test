@@ -48,31 +48,31 @@
       "id": 1,
       "description": "Yellow Kayak",
       "itemCategoryId": 1,
-      "cost": 399.0
+      "cost": 399
     },
     {
       "id": 2,
       "description": "Two-person Kayak",
       "itemCategoryId": 1,
-      "cost": 646.0
+      "cost": 646
     },
     {
       "id": 3,
       "description": "Backpack",
       "itemCategoryId": 2,
-      "cost": 39.0
+      "cost": 39
     },
     {
       "id": 4,
       "description": "Helmet",
       "itemCategoryId": 2,
-      "cost": 279.0
+      "cost": 279
     },
     {
       "id": 5,
       "description": "Hiking Boots",
       "itemCategoryId": 3,
-      "cost": 85.0
+      "cost": 85
     }
   ],
   "orderStatuses": [
@@ -100,7 +100,10 @@
       "userId": 2,
       "shippingAddress": 3,
       "billingAddress": 4,
-      "itemIds": [3, 4]
+      "itemIds": [
+        3,
+        4
+      ]
     },
     {
       "id": 2,
@@ -108,7 +111,10 @@
       "userId": 1,
       "shippingAddress": 2,
       "billingAddress": 2,
-      "itemIds": [1, 4]
+      "itemIds": [
+        1,
+        4
+      ]
     },
     {
       "id": 3,
@@ -116,7 +122,9 @@
       "userId": 2,
       "shippingAddress": 4,
       "billingAddress": 4,
-      "itemIds": [5]
+      "itemIds": [
+        5
+      ]
     }
   ],
   "users": [
@@ -131,6 +139,12 @@
       "firstName": "Kaitlin",
       "lastName": "Harjo",
       "userTypeId": 3
+    },
+    {
+      "id": 3,
+      "firstName": "John",
+      "lastName": "Aguirre",
+      "userTypeId": 2
     }
   ],
   "userTypes": [

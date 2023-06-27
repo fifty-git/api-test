@@ -1,9 +1,9 @@
-const logger = require("../logger/logger");
-const jwt = require("jsonwebtoken");
+const logger = require('../logger/logger');
+const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRET_KEY;
 
-module.exports.protect = function(req, res, next) {
-  logger.info("Validating token");  
+module.exports.protect = function (req, res, next) {
+  logger.info('Validating token');
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({ error: 'Invalid token' });
@@ -24,4 +24,4 @@ module.exports.protect = function(req, res, next) {
       return res.status(500).json({ error: 'Token validation error' });
     }
   }
-}
+};

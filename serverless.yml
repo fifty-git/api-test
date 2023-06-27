@@ -25,11 +25,20 @@ functions:
           path: /login
           method: POST
       - http:
-          path: /address
+          path: /addresses
           method: GET
       - http:
           path: /address/{id}
           method: GET
+      - http:
+          path: /users
+          method: GET
+      - http:
+          path: /user/{id}
+          method: GET
+      - http:
+          path: /user
+          method: POST
 
 plugins:
   - serverless-offline
