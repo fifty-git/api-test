@@ -1,0 +1,27 @@
+service: api-test
+
+frameworkVersion: "3"
+
+provider:
+  stage: dev
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+
+custom:
+  dotenv:
+    path: .env
+  serverless-offline:
+    noPrependStageInUrl: true
+
+functions:
+  app:
+    handler: app.handler
+    events:
+      - http: 
+          path: /
+          method: GET
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin

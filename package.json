@@ -1,0 +1,21 @@
+{
+  "name": "api-test",
+  "version": "1.0.0",
+  "description": "You are provided a JSON file that will act as your database.",
+  "main": "app.js",
+  "scripts": {
+    "start": "serverless offline"
+  },
+  "author": "John Aguirre",
+  "license": "ISC",
+  "devDependencies": {
+    "serverless-offline": "^12.0.4"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "serverless-dotenv-plugin": "^6.0.0",
+    "serverless-http": "^3.2.0",
+    "winston": "^3.9.0"
+  }
+}
